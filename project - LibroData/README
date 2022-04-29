@@ -1,0 +1,281 @@
+// ION SEBASTIAN-FLORENTIN - 324CB
+// POO - TEMA 1
+
+
+Structura proiectului:
+
+	project - LibroData 
+	    		| 
+	    		 -- src/*.java
+	    		|
+	    		 -- init/*.in
+		
+	
+	Rularea se poate realiza din IDE, setand directorul "project - LibroData" drept workspace, sau,
+	tot din directorul "project - LibroData", executand comenzile
+	"javac src/*.java; java -cp ./src LibroData".
+
+
+SURSE:
+
+src/LibroData.java
+	- clasa "driver" a proiectului, clasa care contine metoda main;
+	- pentru datele pe care le vrem intialiazate (carti, autori, limbi, si asa mai departe) se va
+	folosi structura de date generica HashMap; in fiecare hashmap "key" va fi ID-ul unui obiect,
+	iar "value" va fi chiar o instanta a obiectului in sine:
+		de exemplu, pentru a accesa cartea cu ID-ul 962, vom folosi metoda get pentru HashMap:
+			books.get(962);
+	- constructorul default, fara parametri, pur si simplu instantiaza un obiect de tip
+	"Initialise" (vezi src/Initialise.java) prin care se vor popula atributele din clasa
+	"LibroData" (hashmap-urile);
+
+	- metoda main:
+		- se instantiaza un obiect "test" de tip "Administration" (vezi src/Administration.java)
+		prin care se acceseaza anumite metode;
+		- tot in functia main se efectueaza testarea programului (partea de testare este descrisa
+		la finalul README-ului).
+
+
+src/Initialise.java
+	- clasa are rolul de a initializa datele proiectului;
+	- constrctorul default, fara parametri, este folosit in clasa "LibroData" pentru a
+	initializa datele;
+
+	- metoda initBooks:
+		- initializeaza un HashMap cu obiecte de tip Book;
+		- ID-ul unei carti reprezinta key-ul, iar cartea in sine reprezinta valoarea din hashmap;
+		- astfel, vom putea accesa cartea folosindu-ne de ID;
+		- in cadrul citirii din fisier (linie cu linie) se instantiaza un obiect de tip Book,
+		caruia ii sunt setate valorile folosind metodele de tip setter din clasa Book;
+
+	- metoda initAuthors:
+		- initializeaza un HashMap cu obiecte de tip Author;
+		- ID-ul unui autor reprezinta key-ul, iar autorul in sine reprezinta valoarea din hashmap;
+		- astfel, vom putea accesa autorul folosindu-ne de ID;
+		- in cadrul citirii din fisier (linie cu linie) se instantiaza un obiect de tip Author,
+		caruia ii sunt setate valorile folosind metodele de tip setter din clasa Author;
+
+	- metoda initLanguages:
+		- initializeaza un HashMap cu obiecte de tip Language;
+		- ID-ul unei limbi reprezinta key-ul, iar limba in sine reprezinta valoarea din hashmap;
+		- astfel, vom putea accesa limba folosindu-ne de ID;
+		- in cadrul citirii din fisier (linie cu linie) se instantiaza un obiect de tip Language,
+		caruia ii sunt setate valorile folosind metodele de tip setter din clasa Language;
+
+	- metoda initEditorialGroups:
+		- initializeaza un HashMap cu obiecte de tip EditorialGroup;
+		- ID-ul unui grup editorial reprezinta key-ul, iar grupul editorial in sine reprezinta
+		valoarea din hashmap;
+		- astfel, vom putea accesa grupul editorial folosindu-ne de ID;
+		- in cadrul citirii din fisier (linie cu linie) se instantiaza un obiect de tip EditorialGroup,
+		caruia ii sunt setate valorile folosind metodele de tip setter din clasa EditorialGroup;
+
+	- metoda initPublishingBrands:
+		- initializeaza un HashMap cu obiecte de tip PublishingBrand;
+		- ID-ul unui brand de publicare reprezinta key-ul, iar brandul de publicare in sine reprezinta
+		valoarea din hashmap;
+		- astfel, vom putea accesa brandul de publicare folosindu-ne de ID;
+		- in cadrul citirii din fisier (linie cu linie) se instantiaza un obiect de tip PublishingBrand,
+		caruia ii sunt setate valorile folosind metodele de tip setter din clasa PublishingBrand;
+
+	- metoda initPublishingRetailers:
+		- initializeaza un HashMap cu obiecte de tip PublishingRetailer;
+		- ID-ul unui retailer reprezinta key-ul, iar retailerul in sine reprezinta valoarea din hashmap;
+		- astfel, vom putea accesa retailerul folosindu-ne de ID;
+		- in cadrul citirii din fisier (linie cu linie) se instantiaza un obiect de tip PublishingRetailer,
+		caruia ii sunt setate valorile folosind metodele de tip setter din clasa PublishingRetailer;
+
+	- metoda initCountries:
+		- initializeaza un HashMap cu obiecte de tip Country;
+		- ID-ul unei tari reprezinta key-ul, iar tara in sine reprezinta valoarea din hashmap;
+		- astfel, vom putea accesa tara folosindu-ne de ID;
+		- in cadrul citirii din fisier (linie cu linie) se instantiaza un obiect de tip Country,
+		caruia ii sunt setate valorile folosind metodele de tip setter din clasa Country;
+
+	- metoda initBooksAuthors:
+		- se stabilesc relatiile dintre carti si autori;
+		- se acceseaza cartile si autorii folosind ID-urile primite ca input si, pentru fiecare carte,
+		se seteaza autorii;
+
+	- metoda initEditGroupsBooks:
+		- se stabilesc relatiile dintre grupuri editoriale si carti;
+		- se acceseaza grupurile editoriale si cartile folosind ID-urile primite ca input si, pentru
+		fiecare grup editorial, se seteaza cartile;
+
+	- metoda initPubBrandsBooks:
+		- se stabilesc relatiile dintre branduri de publicare si carti;
+		- se acceseaza brandurile de publicare si cartile folosind ID-urile primite ca input si, pentru
+		fiecare brand de publicare, se seteaza cartile;
+
+	- metoda initPubRetCountries:
+		- se stabilesc relatiile dintre retaileri si tari;
+		- se acceseaza retailerii si tarile folosind ID-urile primite ca input si, pentru
+		fiecare retailer, se seteaza tarile;
+
+	- metoda initPubRetBooks:
+		- se stabilesc relatiile dintre retaileri si carti;
+		- se acceseaza retailerii si cartile folosind ID-urile primite ca input si, pentru
+		fiecare retailer, se seteaza carile ca fiind de tipul IPublishingArtifact (se foloseste
+		interfata extinsa de clasa Book drept tip);
+
+	- metoda initPubRetEditGroups:
+		- se stabilesc relatiile dintre retaileri si grupuri editoriale;
+		- se acceseaza retailerii si grupurile editoriale folosind ID-urile primite ca input,
+		si, pentru fiecare retailer, se seteaza grupurile editoriale ca fiind de tipul
+		IPublishingArtifact (se foloseste interfata extinsa de clasa EditorialGroup drept tip);
+
+	- metoda initPubRetPubBrands:
+		- se stabilesc relatiile dintre retaileri si branduri de publicare;
+		- se acceseaza retailerii si brandurile de publicare folosind ID-urile primite ca
+		input, si, pentru fiecare retailer, se seteaza brandurile de publicare ca fiind de
+		tipul IPublishingArtifact (se foloseste interfata extinsa de clasa PublishingBrand drept tip).
+
+
+src/Author.java
+	- clasa pentru entitatea Author.
+
+
+src/Country.java
+	- clasa pentru entitatea Country.
+
+
+src/Language.java
+	- clasa pentru entitatea Language.
+
+
+src/PublishingRetailer.java
+	- clasa pentru entitatea PublishingRetailer.
+
+
+src/IPublishingArtifact.java
+	- clasa pentru interfata IPubishingArtifact;
+	- contine getteri si setteri;
+	- de asemenea, contine metoda Publish ce intoarce un String care va contine metadata respectivului
+	artifact.
+
+
+src/Book.java
+	- clasa pentru entitatea Book;
+	- implementeaza interfetele IPublishingArtifact si Comparable pentru tipul Book;
+	- pe langa getterii si setterii obisnuiti, se foloseste si metoda getAuthorsNames pentru a prelua
+	numele si prenumele autorilor unei carti;
+
+	- metoda Publish:
+		- intoarce un String care contine metadatele unei carti, formatat pentru xml;
+
+	- metoda compareTo:
+		- va fi folosita la sortarea in ordine alfabetica a cartilor (util pentru aspect);
+	- metoda equals:
+		- compara doua carti in functie de ID.
+
+
+src/EditorialGroup.java
+	- clasa pentru entitatea EditorialGroup;
+	- implementeaza interfata IPulishingArtifact;
+
+	- metoda Publish:
+		- intoarce un String care contine metadatele unui grup editorial, formatat pentru xml;
+		totodata, in metoda Publish care apartine EditorialGroup este folosita metoda Publish
+		care apartine Book; pentru formatarea corecta, se foloseste un obiect de tip StringBuileder
+		pentru generarea mai usoara a unui String si de metoda replaceAll a clasei respective
+		pentru a adauga un "tab" in plus la inceputul fiecarei linii din String-ul intors de
+		metoda Publish care apartine Book.
+
+
+src/PublishingBrand.java
+	- clasa pentru entitatea PublishingBrand;
+	- implementeaza interfata IPulishingArtifact;
+
+	- metoda Publish:
+		- intoarce un String care contine metadatele unui brand de publicare, formatat pentru xml;
+		totodata, in metoda Publish care apartine PublishingBrand este folosita metoda Publish
+		care apartine Book; pentru formatarea corecta, se foloseste un obiect de tip StringBuileder
+		pentru generarea mai usoara a unui String si de metoda replaceAll a clasei respective
+		pentru a adauga un "tab" in plus la inceputul fiecarei linii din String-ul intors de
+		metoda Publish care apartine Book.
+
+
+src/Administration.java
+	- clasa pentru metodele din sectiunea "Data Structures";
+
+	- metoda getBooksForPublishingRetailerID:
+		- stocheaza cartile pentru un retailer;
+		- cartile vor fi stocate initial intr-un hashmap, mai apoi facandu-se conversia la ArrayList;
+		- se itereaza obiectele de tip IPublishingArtifact ale retailerului, se verifica daca este o
+		instanta a unui obiect de tip Book, caz in care se adauga direct intr hashmap, a unui obiect
+		de tip EditorialGroup, caz in care se itereaza lista de carti a acestuia, iar cartea
+		se adauga in hashmap, sau a unui obiect de tip PublishingBrand, caz in care se itereaza lista
+		de carti a acestuia, iar cartea se adauga in hashmap;
+		- se foloseste o colectie pentru tipul Book pentru a salva cartile din hashmap, iar apoi se
+		genereaza un ArrayList folosind colectia;
+
+	- metoda getLanguagesForPublishingRetailerID:
+		- stocheaza limbile pentru un retailer;
+		- limbile vor fi stocate initial intr-un hashmap, mai apoi facandu-se conversia la ArrayList;
+		- se foloseste metoda getBooksForPublishingRetailerID pentru a avea acces la cartile
+		retailer-ului;
+		- se itereaza lista de carti, iar pentru fiecare carte limba acesteia este stocata in hashmap
+		- se foloseste o colectie pentru tipul Language pentru a salva limbile din hashmap, iar apoi se
+		genereaza un ArrayList folosind colectia;
+
+	- metoda getCountriesForBookID:
+		- stocheaza tarile unei carti;
+		- se itereaza obiectele de tip PublishingRetailer pana cad se gaseste retailerul caruia cartea
+		data ii apartine si se returneaza lista de tari aferenta retailerului;
+
+	- metoda getCommonBooksForRetailerIDs:
+		- stocheaza cartile comune pentru 2 retaileri;
+		- se foloseste metoda getBooksForPublishingRetailerID pentru a avea acces la cartile celor doi
+		retaileri;
+		- instaniem un alt ArrayList de tip Book care stocheaza cartile primul retailer si, folosind
+		metoda retailAll avand ca parametru cartile celui de-al doilea retailer, putem salva doar
+		cartile comune;
+
+	- metoda getAllBooksForRetailerIDs:
+		- stocheaza cartile a 2 retaileri intr-o singura lista;
+		- se foloseste metoda getBooksForPublishingRetailerID pentru a avea acces la cartile celor doi
+		retaileri;
+		- se foloseste un hashmap pentru a evita cartile duplicate;
+		- se itereaza cele 2 liste si cartile se insereaza in hashmap;
+		- valorile din hashmap sunt salvate intr-o colectie pe baza careia se genereaza un ArrayList
+		care, dupa sortare alfabetica, va fi intors.
+
+
+Testare:
+
+- output-urile se genereaza intr-un director numit "outputs", aflat pe acelasi nivel cu directoarele
+"src" si "init"; directorul "outputs" este creat cu ajutorul unui obiect de tip File si cu metoda
+mkdir a acestuia; de asemenea fisierele generate in acest director vor fi create cu ajutorul a cate unui
+obiect de tip PrintStream care permite scrierea in fisiere;
+	
+- metodele Publish:
+	- cum am precizat anterior, putem accesa valori din hashmap-urile clasei "LibroData"
+	folosind metoda "get" avand drept parametru un intreg care reprezinta ID-ul obiectului;
+	- se aleg la intamplare ID-uri pentru carti, grupuri editoriale si branduri de publicare;
+	- pentru cele 3 categorii se genereaza cate un fisier .xml (tag-urile <xml> si </xml> le-am
+	scris in afara functiilor Publish pentru a respecta structura xml in cazul in care se publica
+	mai multe obiecte de acelasi tip).
+	
+- metodele din sectiunea "Data Structures" :
+	- metoda 1:
+		- se itereaza listele de carti pentru retaileri, numele cartilor sunt scrise in fisierele
+		"getBook#.txt", unde # reprezinta numarul fisierului generat;
+		
+	- metoda 2:
+		- se itereaza listele de limbi pentru retaileri, numele limbilor sunt scrise in fisierele
+		"getLanguage#.txt", unde # reprezinta numarul fisierului generat;
+		
+	- metoda 3:
+		- se itereaza listele de tari pentru carti, codurile tarilor sunt scrise in fisierele
+		"getCountries#.txt", unde # reprezinta numarul fisierului generat;
+
+	- metoda 4:
+		- se itereaza listele de carti comune pentru 2 retaileri, numele cartilor sunt scrise
+		in fisierele "getCommon#.txt", unde # reprezinta numarul fisierului generat;
+
+	- metoda 5:
+		- se itereaza listele de carti reunite pentru 2 retaileri, numele cartilor sunt scrise
+		in fisierele "getAll#.txt", unde # reprezinta numarul fisierului generat;
+	
+- un lucru important de precizat este ca metodele nu functioneaza pentru ID-uri inexistente; o solutie
+ar putea fi definirea unor exceptii checked pentru ca programul sa ruleze indiferent de ID-urile date.
